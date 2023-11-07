@@ -408,6 +408,26 @@ describe('Generator', () => {
       }, 0);
     });
 
+    it('works with a path to registry', async () => {
+      log.debug = jest.fn();
+      utils.__getTemplateDetails = undefined;
+      const gen = new Generator('nameOfTestTemplate', __dirname, {debug: true, registry: {url: 'some.registry.com', username: 'user', password: 'password', token: 'token'}});
+      await gen.installTemplate();
+      setTimeout(() => { // This puts the call at the end of the Node.js event loop queue.
+        expect(arboristMock.reify).toHaveBeenCalledTimes(1);
+      }, 0);
+    });
+
+    it('throws an error indicating an unexpected param was given for registry configuration', () => {
+      const t = () => new Generator('testTemplate', __dirname, {
+        registry: {
+          url: 'some.url.com',
+          privateKey: 'some.key'
+        }
+      });
+      expect(t).toThrow('There invalid parameters were specified to configure private registry: privateKey');
+    });
+
     it('works with a url and force = true', async () => {
       const gen = new Generator('https://my-test-template.com', __dirname);
       await gen.installTemplate(true);
