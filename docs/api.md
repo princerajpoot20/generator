@@ -4,6 +4,20 @@ weight: 75
 ---
 
 Reference API documentation for AsyncAPI Generator library.
+## Classes
+
+<dl>
+<dt><a href="#Generator">Generator</a></dt>
+<dd></dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#RegistryOptions">RegistryOptions</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+
 
 <a name="Generator"></a>
 
@@ -25,6 +39,7 @@ Reference API documentation for AsyncAPI Generator library.
         * [.templateConfig](#Generator+templateConfig) : `Object`
         * [.hooks](#Generator+hooks) : `Object`
         * [.mapBaseUrlToFolder](#Generator+mapBaseUrlToFolder) : `Object`
+        * [.registry](#Generator+registry) : [`RegistryOptions`](#RegistryOptions)
         * [.templateParams](#Generator+templateParams) : `Object`
         * [.generate(asyncapiDocument, [parseOptions])](#Generator+generate) ⇒ `Promise.<void>`
         * [.validateAsyncAPIDocument(asyncapiDocument)](#Generator+validateAsyncAPIDocument)
@@ -64,6 +79,7 @@ Instantiates a new Generator object.
     - [.install] `Boolean` ` = false` - Install the template and its dependencies, even when the template has already been installed.
     - [.debug] `Boolean` ` = false` - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.
     - [.mapBaseUrlToFolder] `Object.<String, String>` - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .
+    - [.registry] [`RegistryOptions`](#RegistryOptions) - Optional npm registry configuration.
 
 **Example**  
 ```js
@@ -161,6 +177,13 @@ Hooks object with hooks functions grouped by the hook type.
 
 * generator.mapBaseUrlToFolder : `Object`** :
 Maps schema URL to folder.
+
+**Kind**: instance property of [`Generator`](#Generator)  
+
+<a name="Generator+registry"></a>
+
+* generator.registry : [`RegistryOptions`](#RegistryOptions)** :
+Npm registry information.
 
 **Kind**: instance property of [`Generator`](#Generator)  
 
@@ -473,3 +496,17 @@ const content = await Generator.getTemplateFile('@asyncapi/html-template', 'part
 const Generator = require('@asyncapi/generator');
 const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');
 ```
+
+<a name="RegistryOptions"></a>
+
+* RegistryOptions : `Object`** :
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| url | `String` | Npm registry URL. |
+| [username] | `String` | Username for npm registry authentication. |
+| [password] | `String` | Base64 encoded password for npm registry authentication. |
+| [token] | `String` | Auth token for npm registry authentication. |
+
